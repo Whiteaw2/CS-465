@@ -3,22 +3,30 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 const hbs = require('hbs');
+require('./app_api/models/db');
+
+hbs.registerHelper('eq', function(arg1, arg2, options) {
+  return (arg1 === arg2) ? options.fn(this) : '';
+});
+
+
 const indexRouter = require('./app_server/routes/index');
 const usersRouter = require('./app_server/routes/users');
 const travelRouter = require('./app_server/routes/travel');
-const aboutRouter = require('./app_server/routes/about');
-const contactRouter = require('./app_server/routes/contact');
+const apiRouter = require('./app_api/routes/index');
+
+const roomsRouter = require('./app_server/routes/rooms');
 const mealsRouter = require('./app_server/routes/meals');
 const newsRouter = require('./app_server/routes/news');
-const roomsRouter = require('./app_server/routes/rooms');
+const aboutRouter = require('./app_server/routes/about');
+const contactRouter = require('./app_server/routes/contact');
+
 
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-
 
 //register handlebars partials (https://www.npmjs.com/package/hbs)
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views/partials'));
@@ -29,25 +37,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-//dynamic selection in header
-hbs.registerHelper('eq', (a, b) => a === b);
-app.use((req, res, next) => {
-  res.locals.currentPath = req.path;
-  next();
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter);
-app.use('/about', aboutRouter);
-app.use('/contact', contactRouter);
+app.use('/api', apiRouter);
+
+app.use('/rooms', roomsRouter);
 app.use('/meals', mealsRouter);
 app.use('/news', newsRouter);
-app.use('/rooms', roomsRouter);
-app.use(express.static(path.join(__dirname, 'public')));
-
-
+app.use('/about', aboutRouter);
+app.use('/contact', contactRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
