@@ -64,4 +64,5 @@ process.on('SIGTERM', () => {
   
 connect(); 
 require('./travlr');
+require('./user');
 console.log('fetched travlr');
