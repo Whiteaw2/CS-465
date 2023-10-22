@@ -19,3 +19,9 @@ The development of this product to meet the client's requirements required exten
 ## Reflection
 
 This course has been extremely helpful and relevant to my professional goals and career. As a software engineering professional in an emerging technology team, I am often exposed to many new types of technologies, but the areas of front and backend development are simultaneously less flashy yet more critical to the effective use of new technologies. The world of connected technologies is underlied by databases, frontend interfaces, and their related concepts. I greatly appreciate this course and its ability to prepare me for increased relevancy in my field. Through this class I worked with a new architecture, API testing tools, and built a functional web platform addressing all client needs in an effective package.
+
+
+References:
+
+Holmes, S., & Harber, C. (2019c). Getting MEAN with Mongo, Express, Angular, and Node. Simon and Schuster.
+
